@@ -1,0 +1,4 @@
+#!/bin/bash
+target="${@: -1}"
+`mkdir $target 2> /dev/null`
+`cp "$@"`
