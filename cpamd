@@ -1,4 +1,20 @@
 #!/bin/bash
+usage ()
+{
+    echo "usage: cpamd [-R [-H | -L | -P]] [-fi | -n] [-apvX] source_file target_file"
+    echo "       cpamd [-R [-H | -L | -P]] [-fi | -n] [-apvX] source_file ... target_directory"
+    echo
+    echo "       (see cp(1) for full man pages)"
+    exit 0
+}
+
+if (( $# < 2 ))
+then
+    usage
+fi
+
 target="${@: -1}"
 `mkdir $target 2> /dev/null`
-`cp "$@"`
+`cp "$@"` || `rm -r $target`
+
+exit 0
