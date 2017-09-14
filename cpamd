@@ -1,6 +1,5 @@
 #!/bin/bash
-usage ()
-{
+usage () {
     echo "usage: cpamd [-R [-H | -L | -P]] [-fi | -n] [-apvX] source_file target_file"
     echo "       cpamd [-R [-H | -L | -P]] [-fi | -n] [-apvX] source_file ... target_directory"
     echo
@@ -8,13 +7,33 @@ usage ()
     exit 0
 }
 
-if (( $# < 2 ))
-then
+die() {
+    echo "error: $1"
+    exit 1
+}
+
+if [[ $# < 2 ]]; then
     usage
 fi
 
+# get all but last argument
+source_files="${@:1:$#-1}"
+
+for file in $source_files; do
+    # check if argument is a cp option
+    if [[ ! $file == "-"* ]]; then
+        # check if file exists
+        if [[ ! -e $file ]]; then
+            die "one or more source files do not exist"
+        fi
+    fi
+done
+
+# get last argument
 target="${@: -1}"
-`mkdir $target 2> /dev/null`
-`cp "$@"` || `rm -r $target`
+# create target_directory and necessary parent directories
+# do not display error if directory already exists
+mkdir -p $target 2> /dev/null
+cp "$@"
 
 exit 0
