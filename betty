@@ -1,7 +1,7 @@
 #!/bin/bash
 usage () {
-    echo "usage: cpamd [-R [-H | -L | -P]] [-fi | -n] [-apvX] source_file target_file"
-    echo "       cpamd [-R [-H | -L | -P]] [-fi | -n] [-apvX] source_file ... target_directory"
+    echo "usage: betty [-R [-H | -L | -P]] [-fi | -n] [-apvX] source_file target_file"
+    echo "       betty [-R [-H | -L | -P]] [-fi | -n] [-apvX] source_file ... target_directory"
     echo
     echo "       (see cp(1) for full man pages)"
     exit 0
